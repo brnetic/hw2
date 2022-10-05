@@ -7,7 +7,7 @@
 
 class Book : public Product{
 	public:
-		Book(std::string name, double price, int qty, std::string author, int ISBN);
+		Book(std::string name, double price, int qty, std::string author, std::string ISBN);
 		~Book();
 		std::set<std::string> keywords() const;
 		std::string displayString() const;
@@ -15,7 +15,7 @@ class Book : public Product{
 
 
 	private:
-		int ISBN_;
+		std::string ISBN_;
 		std::string author_;
 
 };

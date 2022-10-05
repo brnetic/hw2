@@ -7,7 +7,7 @@
 
 class Movie : public Product{
 	public:
-		Movie(std::string name, double price, int qty, std::string genre, int rating);
+		Movie(std::string name, double price, int qty, std::string genre, std::string rating);
 		~Movie();
 		std::set<std::string> keywords() const;
 		std::string displayString() const;
@@ -16,6 +16,6 @@ class Movie : public Product{
 
 	private:
 		std::string genre_;
-		int rating_;
+		std::string rating_;
 
 };

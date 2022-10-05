@@ -18,11 +18,12 @@ std::set<std::string> parseStringToWords(string rawWords)
 
 	set<std::string> L;
 	unsigned int i = 0;
+	rawWords = convToLower(rawWords);
 
 	while(i < rawWords.length()){
 		std::string a = "";
 
-		while (rawWords[i] != ' ' && i < rawWords.length() && std::ispunct(rawWords[i])){
+		while (rawWords[i] != ' ' && i < rawWords.length() && !(std::ispunct(rawWords[i]))){
 			a += rawWords[i];
 			i++;
 			
