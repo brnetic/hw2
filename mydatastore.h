@@ -23,7 +23,7 @@ class MyDataStore : public DataStore{
 	private:
 		std::set<Product*> products_;
 		std::map<std::string,User*> users_;
-		std::map<std::string,std::vector<Product*>> cart_;
+		std::map<User*,std::vector<Product*>> cart_;
 		
 
 

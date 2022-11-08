@@ -183,6 +183,7 @@ UserSectionParser::UserSectionParser()
 {
     numRead_ = 0;
 }
+
 bool UserSectionParser::parse(
     std::istream& is,
     DataStore& ds,
@@ -201,7 +202,10 @@ bool UserSectionParser::parse(
             return true;
         }
         lineno++;
+    
+        
     }
+    
     return false;
 }
 User* UserSectionParser::parseUser(

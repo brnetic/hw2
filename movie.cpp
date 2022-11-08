@@ -20,7 +20,7 @@ std::set<std::string> Movie:: keywords() const{
 	return keywords;
 }
 std::string Movie:: displayString() const{
-	std::string s = getName() + "\nGenre:" + genre_ + " Rating: "+rating_+"\n"+std::to_string(getPrice()).substr(0,5)+" "+std::to_string(getQty())+" items left.\n";
+	std::string s = getName() + "\nGenre: " + genre_ + " Rating: "+rating_+"\n"+std::to_string(getPrice()).substr(0,5)+" "+std::to_string(getQty())+" items left.\n";
 	return s;
 }
 void Movie::dump(std::ostream& os) const{

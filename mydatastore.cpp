@@ -16,8 +16,14 @@ MyDataStore :: ~MyDataStore(){
 	std::set<Product*>::iterator it = products_.begin();
 	for(it;it != products_.end();++it){
 		delete *it;
-		products_.erase(it);
-		}
+		
+	}
+	products_.clear();
+	std::map<std::string,User*>::iterator it1 = users_.begin();
+	for(it1;it1 != users_.end();++it1){
+		delete (*it1).second;
+		
+	}
 }
 void MyDataStore :: addProduct(Product* p){
 	products_.insert(p);
@@ -26,7 +32,7 @@ void MyDataStore :: addUser(User* u){
 	users_.insert(std::pair<std::string,User*>(convToLower(u->getName()),u));
 
 	std::vector<Product*> br;
-	cart_.insert(std::pair<std::string,std::vector<Product*>>(convToLower(u->getName()),br));
+	cart_.insert(std::pair<User*,std::vector<Product*>>(u,br));
 }
 
 std::vector<Product*> MyDataStore :: search(std::vector<std::string>& terms, int type){
@@ -77,10 +83,10 @@ void MyDataStore :: dump(std::ostream& ofile){
 
 void MyDataStore :: viewCart(std::string username){
 	if(users_.find(username) != users_.end()){
-		std::cout<<"Products that are currently in the cart: ";
-		std::vector<Product*> :: iterator it = cart_.find(username)->second.begin();
-		for(it;it != cart_.find(username)->second.end();++it){
-			std::cout<<(*it)->getName()<<" ";
+		
+		std::vector<Product*> :: iterator it = cart_.find(users_[username])->second.begin();
+		for(it;it != cart_.find(users_[username])->second.end();++it){
+			std::cout<<(*it)->displayString()<<" ";
 
 		}
 		std::cout<<std::endl;
@@ -89,7 +95,7 @@ void MyDataStore :: viewCart(std::string username){
 
 void MyDataStore :: addCart(std::string username,Product* br){
 	if(users_.find(username) != users_.end() && products_.find(br) != products_.end()){
-		cart_.find(username)->second.push_back(br);
+		cart_.find(users_[username])->second.push_back(br);
 	}
 	else{
 		std::cout<<"This username doesn't exist"<<std::endl;
@@ -98,8 +104,8 @@ void MyDataStore :: addCart(std::string username,Product* br){
 void MyDataStore :: buyCart(std::string username){
 	if(users_.find(username) != users_.end()){
 		User* u = users_[username];
-		std::vector<Product*> :: iterator it = cart_.find(username)->second.begin();
-		for(it;it != cart_.find(username)->second.end();++it){
+		std::vector<Product*> :: iterator it = cart_.find(users_[username])->second.begin();
+		for(it;it != cart_.find(users_[username])->second.end();++it){
 			if((*it)->getQty()> 0 && u->getBalance() - (*it)->getPrice() > 0){
 				u->deductAmount((*it)->getPrice());
 				(*it)->subtractQty(1);
@@ -112,8 +118,8 @@ void MyDataStore :: buyCart(std::string username){
 
 		}
 		
-		for(int i = 0;i < cart_[username].size();i++){
-			(cart_[username]).pop_back();
+		for(int i = 0;i < cart_[users_[username]].size();i++){
+			(cart_[users_[username]]).pop_back();
 		}
 	}
 	else{

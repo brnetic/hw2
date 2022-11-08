@@ -21,12 +21,12 @@ std::set<std::string> Book:: keywords() const{
 	
 }
 std::string Book:: displayString() const{
-	std::string s = getName() + "\nAuthor:" + author_ + " ISBN: "+ISBN_+"\n"+std::to_string(getPrice()).substr(0,5)+" "+std::to_string(getQty())+" items left.\n";
+	std::string s = getName() +  "\nAuthor: " + author_ + " ISBN: "+ISBN_+"\n"+std::to_string(getPrice()).substr(0,5)+" "+std::to_string(getQty())+" items left.\n";
 	return s;
 }
 void Book::dump(std::ostream& os) const{
 	Product::dump(os);
-	os << author_ <<"\n"<<ISBN_;
+	os << ISBN_ <<"\n"<<author_;
 }
 
 
